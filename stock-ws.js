@@ -31,13 +31,13 @@ ds.once('connected', function () {
 // Create the model
   var StockQuote = ds.createModel('StockQuote', {});
 
-  StockQuote.stockQuote({symbol: 'IBM'}, function (err, response) {
+  StockQuote.stockQuote({symbol: 'FB'}, function (err, response) {
+    console.log('err: ', err);
     console.log('Response: ', response);
   });
 
-  StockQuote.stockQuote12({symbol: 'FB'}, function (err, response) {
+  StockQuote.stockQuote12({symbol: 'IBM'}, function (err, response) {
+    console.log('err: ', err);
     console.log('Response: ', response);
   });
-
-
 });
