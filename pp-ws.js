@@ -11,12 +11,7 @@ var ds = loopback.createDataSource('soap', {
 
     // Map SOAP service/port/operation to Node.js methods
     operations: {
-      addClient: {
-        service: 'Generic',
-        port: 'GenericSoap',
-        operation: 'CallMethod'
-      },
-      getClient: {
+      soapPOST: {
         service: 'Generic',
         port: 'GenericSoap',
         operation: 'CallMethod'
@@ -29,16 +24,16 @@ var ds = loopback.createDataSource('soap', {
 ds.once('connected', function () {
   var PP = ds.createModel('PP', {});
   //console.log(PP);
-  PP.addClient({
-    ClientID: 'ROFITPOWERDEMO825gpv',
+  /*PP.addClient({
+    ClientID: 'PROFITPOWERDEMO825gpv',
     Method: 'AddClient',
-    MethodXML: {
+    MethodXML: JSON.stringify({
       doc: {
         Client: {
           City: 'Buffalo',
-          ClientUID: '0EB470AB-CAE2-4ABD-BE28-C4BD0B36A1B0',
+          ClientUID: '0EB470AB-CAE2-4ABD-BE28-C4BD0B36A1B3',
           ClientType: 'Seller',
-          EmailAddress: 'test@123.com',
+          EmailAddress: 'test@1234.com',
           FirstName: 'John',
           HomePhone: '7169290000',
           LastName: 'Maheson',
@@ -49,25 +44,19 @@ ds.once('connected', function () {
           Zip: '14221'
         }
       }
-    }
-  }, function(err, response) {
-    console.log('err: ', err);
-    console.log('response:', response);
-  });
-
-  /*PP.getClient({
-    ClientID: 'ROFITPOWERDEMO825gpv',
-    Method: 'GetClients',
-    MethodXML: JSON.stringify({
-      doc: {
-        Clients: {
-          ClientUID: '0EB470AB-CAE2-4ABD-BE28-C4BD0B36A1B0'
-        }
-      }
-    })//'<doc><Clients><ClientGUID>0EB470AB-CAE2-4ABD-BE28-C4BD0B36A1B0</ClientGUID></Clients></doc>'
+    })
   }, function(err, response) {
     console.log('err: ', err);
     console.log('response:', response);
   });*/
+
+  PP.soapPOST({
+    ClientID: 'PROFITPOWERDEMO825gpv',
+    Method: 'GetClients',
+    MethodXML: '<![CDATA[<doc><Clients><ClientGUID>0EB470AB-CAE2-4ABD-BE28-C4BD0B36A1B0</ClientGUID></Clients></doc>]]>'
+  }, function(err, response) {
+    console.log('err: ', err);
+    console.log('response:', response);
+  });
 
 });
